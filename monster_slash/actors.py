@@ -4,6 +4,10 @@ class Actor:
     def __init__(self, name, level):
         self.name = name
         self.level = level
+        self.hp = 100 * level
+
+    def is_alive(self):
+        return self.hp > 0
 
     def __repr__(self):
         return '<Actor: {}, Level: {}'.format(self.name, self.level)
@@ -16,23 +20,26 @@ class Actor:
 
 class Player(Actor):
 
+    def heal(self):
+        self.hp += 10
+
     def attacks(self, enemy):
         power = self.get_attack_power()
-        enemy_power = enemy.get_attack_power()
+        print('{} attacks the {}.'.format(self.name, enemy.kind))
+        print('{} has {} attack power'.format(self.name, power))
+        enemy.hp -= power
 
-        print('You summon {} power units!'.format(power))
-        print('{} the {} summons {} power units'.format(enemy.name, enemy.kind, enemy_power))
-
-        if power >= enemy_power:
-            print('You slay {} the {}'.format(enemy.name, enemy.kind))
-            return True
-        else:
-            print('You were defeated')
-            return False
 class Enemy(Actor):
     def __init__(self, name, level, kind):
         super().__init__(name, level)
         self.kind = kind
+
+    def attacks(self, player):
+        e_power = self.get_attack_power()
+        print('{} the {} attacks {}.'.format(self.name, self.kind, player.name))
+        print('{} has {} attack power.'.format(self.name, e_power))
+        player.hp -= e_power
+
 
 class Ogre(Enemy):
     def __init__(self, name, level, size):
@@ -51,9 +58,10 @@ class Imp(Enemy):
 
 if __name__ == '__main__':
     player = Player(name="Hercules", level = 3)
-    print(player)
-    enemy = Enemy(kind="Ogre", level = 1)
-    print(enemy)
-    print(enemy.level)
-    print(player.get_attack_power())
-    print(enemy.get_attack_power())
+    oger = Ogre(name='Bob', level = 1, size= 2)
+    print(player.hp)
+    oger.attacks(player)
+    print(player.hp)
+
+    player.heal()
+    print(player.hp)

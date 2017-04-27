@@ -31,7 +31,7 @@ class Game:
     def play(self):
         while True:
             next_enemy = random.choice(self.enemies)
-            cmd = input('You see a {}, [r]un, [a]ttack, [p]ass?\n'.format(next_enemy.kind))
+            cmd = input('You see a {}, [r]un and heal, [a]ttack, [p]ass?\n'.format(next_enemy.kind))
             if cmd == 'r':
                 print('{} runs away!'.format(self.player.name))
             elif cmd == 'a':
