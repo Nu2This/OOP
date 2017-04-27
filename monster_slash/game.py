@@ -1,6 +1,6 @@
 import random
 from actors import Player, Enemy
-
+input()
 def main():
         print_intro()
         play()
