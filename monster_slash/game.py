@@ -1,5 +1,5 @@
 import random
-from actors import Player, Enemy
+from actors import Player, Enemy, Ogre, Imp
 
 
 #fuck fuck fuck fuck fuck
@@ -53,10 +53,9 @@ class Game:
 if __name__ == '__main__':
     #main()
     enemies = [
-        Enemy('Ogre',1),
-        Enemy('Imp',1)
+        Ogre('Bob', 2, 3),
+        Imp('Les', 1)
         ]
     player = Player('Hercules',1)
 
-    Game(player, enemies).main()
     Game(player, enemies).main()
