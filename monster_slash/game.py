@@ -2,6 +2,9 @@ import random
 from actors import Player, Enemy
 
 
+#fuck fuck fuck fuck fuck
+
+
 class Game:
     def __init__(self,player,enemies):
         self.player = player
