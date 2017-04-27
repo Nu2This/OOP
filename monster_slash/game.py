@@ -34,17 +34,29 @@ class Game:
             cmd = input('You see a {}, [r]un and heal, [a]ttack, [p]ass?\n'.format(next_enemy.kind))
             if cmd == 'r':
                 print('{} runs away!'.format(self.player.name))
+                print('{} heals thyself'.format(self.player.name))
+                self.player.heal()
+                print(self.player.hp)
             elif cmd == 'a':
-                print('{} attacks the {}'.format(self.player.name, next_enemy.kind))
-                if self.player.attacks(next_enemy):
+                self.player.attacks(next_enemy)
+                if not next_enemy.is_alive():
                     self.enemies.remove(next_enemy)
-                else:
-                    print('{} hides to plan the next move'.format(self.player.name))
+                    next_enemy = None
+                if next_enemy:
+                    next_enemy.attacks(self.player)
             elif cmd == 'p':
                 print('You are still thinking about your next move...')
+                if random.randint(1,11) < 5:
+                    next_enemy.attacks(self.player)
             else:
                 print('Please choose a valid option')
+            if not self.player.is_alive():
+                print('Oh no You lose!')
+                break
             self.print_linebreak()
+            self.player.stats()
+            for e in self.enemies:
+                e.stats()
             if not enemies:
                 print('You have won! Congrats!')
                 break
@@ -56,6 +68,6 @@ if __name__ == '__main__':
         Ogre('Bob', 2, 3),
         Imp('Les', 1)
         ]
-    player = Player('Hercules',1)
+    player = Player('Hercules',5)
 
     Game(player, enemies).main()

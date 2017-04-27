@@ -6,6 +6,10 @@ class Actor:
         self.level = level
         self.hp = 100 * level
 
+    def stats(self):
+        print('{} has {} hp'.format(self.name, self.hp))
+
+
     def is_alive(self):
         return self.hp > 0
 
@@ -13,7 +17,7 @@ class Actor:
         return '<Actor: {}, Level: {}'.format(self.name, self.level)
 
     def get_attack_power(self):
-        return randint(1,100) * self.level
+        return randint(1,10) * self.level
 
     def attacks(self,other):
         raise NotImplementedError()
@@ -47,7 +51,7 @@ class Ogre(Enemy):
         self.size = size
 
     def get_attack_power(self):
-        return randint(1, 50) * (self.size * self.level)
+        return randint(1, 5) * (self.size * self.level)
     pass
 
 class Imp(Enemy):
